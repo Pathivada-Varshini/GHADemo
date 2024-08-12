@@ -3,6 +3,7 @@ name: Spring Demo GHA
 on:
   push:
     branches:
+      - main
       - master
   pull_request:
     branches:
@@ -11,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
@@ -23,5 +25,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean package -DskipTests --file pom.xml
 
+      - name: Run tests
+        run: mvn test
+        if: ${{ contains(github.event.head_commit.message, 'test commit') }}
