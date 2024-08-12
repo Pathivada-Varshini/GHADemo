@@ -25,5 +25,13 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/task
       SPRING_DATASOURCE_USERNAME: Varshini
       SPRING_DATASOURCE_PASSWORD: mypassword
+  react-app:
+    build: C:\Users\VARSHINI P\Documents\React\dockerapp
+    container_name: react-frontend
+    ports:
+        - "3000:3000"
+    depends_on:
+        - springboot-app
+
 volumes:
   mysql-data:
