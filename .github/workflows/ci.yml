@@ -28,11 +28,11 @@ jobs:
         run: mvn clean package --file pom.xml
 
       - name: Run tests
-        run: mvn test
         if: ${{ contains(github.event.head_commit.message, 'test commit') }}
+        run: mvn test
 
       - name: Upload jar to Github
-        if: ${success()}}
+        if: ${{ success() }}
         uses: actions/upload-artifact@v3
         with:
           name: myapp-jar
